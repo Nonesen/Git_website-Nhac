@@ -226,13 +226,27 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ view }) => {
                                 <div className="add-song-form" style={{ background: 'rgba(255,255,255,0.05)', padding: '2rem', borderRadius: '16px', marginBottom: '2rem', border: '1px solid var(--primary-light)' }}>
                                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '10px', width: 'fit-content' }}>
                                         <button 
-                                            onClick={() => setUseExternalSource(false)}
+                                            onClick={() => {
+                                                setUseExternalSource(false);
+                                                setNewSong(prev => ({
+                                                    ...prev,
+                                                    src: prev.src?.startsWith('http') ? '/sound/' : prev.src,
+                                                    cover: prev.cover?.startsWith('http') ? '/img/' : prev.cover
+                                                }));
+                                            }}
                                             style={{ background: !useExternalSource ? 'var(--primary-color)' : 'transparent', color: 'white', border: 'none', padding: '6px 15px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
                                         >
                                             <i className="fa-solid fa-folder-open" style={{marginRight: '6px'}}></i> File trong máy
                                         </button>
                                         <button 
-                                            onClick={() => setUseExternalSource(true)}
+                                            onClick={() => {
+                                                setUseExternalSource(true);
+                                                setNewSong(prev => ({
+                                                    ...prev,
+                                                    src: prev.src?.startsWith('/sound/') ? '' : prev.src,
+                                                    cover: prev.cover?.startsWith('/img/') ? '' : prev.cover
+                                                }));
+                                            }}
                                             style={{ background: useExternalSource ? 'var(--primary-color)' : 'transparent', color: 'white', border: 'none', padding: '6px 15px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
                                         >
                                             <i className="fa-brands fa-youtube" style={{marginRight: '6px'}}></i> Link ngoài (YT/URL)

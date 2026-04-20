@@ -134,6 +134,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     const playSong = useCallback(async (song: Song) => {
         try {
             // 1. Stop everything current immediately
+            if (!song.src) {
+                alert('Không tìm thấy link nhạc!');
+                return;
+            }
             setIsPlaying(false);
             if (audioRef.current) {
                 audioRef.current.pause();
