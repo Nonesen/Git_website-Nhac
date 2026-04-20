@@ -7,28 +7,18 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const type = searchParams.get('type'); // 'sound' or 'img'
 
-        const publicDir = path.join(process.cwd(), 'public');
-        const targetDir = type === 'img' ? path.join(publicDir, 'img') : path.join(publicDir, 'sound');
-
-        if (!fs.existsSync(targetDir)) {
-            return NextResponse.json({ success: false, error: 'Directory not found' }, { status: 404 });
+        const dataPath = path.join(process.cwd(), 'data', 'file-list.json');
+        
+        if (!fs.existsSync(dataPath)) {
+            return NextResponse.json({ success: false, error: 'File list not generated. Please run build again.' }, { status: 404 });
         }
 
-        const files = fs.readdirSync(targetDir);
-        
-        // Filter for specific extensions
-        const filteredFiles = files.filter(file => {
-            const ext = path.extname(file).toLowerCase();
-            if (type === 'img') {
-                return ['.jpg', '.jpeg', '.png', '.webp', '.svg'].includes(ext);
-            } else {
-                return ['.mp3', '.wav', '.m4a', '.ogg'].includes(ext);
-            }
-        });
+        const fileListData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        const files = type === 'img' ? fileListData.img : fileListData.sound;
 
         return NextResponse.json({ 
             success: true, 
-            files: filteredFiles 
+            files: files 
         });
 
     } catch (error) {
