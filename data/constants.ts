@@ -12,92 +12,92 @@ export const songs: Song[] = [
         id: 1,
         title: "4 Mùa Thương Em",
         artist: "Lập Nguyên",
-        cover: "/img/4MuaThuongEm.jpg",
-        src: "/sound/4MuaThuongEm_LapNguyen.mp3"
+        cover: "/img/4muathuongem.jpg",
+        src: "/sound/4muathuongem-lapnguyen.mp3"
     },
     {
         id: 2,
         title: "Anh Thanh Niên",
         artist: "HuyR",
-        cover: "/img/AnhThanhNien.jpg",
-        src: "/sound/AnhThanhNien_HuyR.mp3"
+        cover: "/img/anhthanhnien.jpg",
+        src: "/sound/anhthanhnien-huyr.mp3"
     },
     {
         id: 3,
         title: "Còn Gì Đẹp Hơn (BCN)",
         artist: "Bùi Công Nam, Nguyễn Hùng",
-        cover: "/img/ConGiDepHon_BCN.jpg",
-        src: "/sound/ConGiDepHon_BuiCongNam_NguyenHung.mp3"
+        cover: "/img/congidephon-bcn.jpg",
+        src: "/sound/congidephon-buicongnam-nguyenhung.mp3"
     },
     {
         id: 4,
         title: "Còn Gì Đẹp Hơn",
         artist: "Nguyễn Hùng",
-        cover: "/img/ConGiDepHon.jpg",
-        src: "/sound/ConGiDepHon_NguyenHung.mp3"
+        cover: "/img/congidephon.jpg",
+        src: "/sound/congidephon-nguyenhung.mp3"
     },
     {
         id: 5,
         title: "Em Ổn Không",
         artist: "Thiên An",
-        cover: "/img/EmOnKhong.jpg",
-        src: "/sound/EmOnKhong_ThienAn.mp3"
+        cover: "/img/emonkhong.jpg",
+        src: "/sound/emonkhong-thienan.mp3"
     },
     {
         id: 6,
         title: "Giờ Thì",
         artist: "Bùi Trường Linh",
-        cover: "/img/GioThi.jpg",
-        src: "/sound/GioThi_BuiTruongLinh.mp3"
+        cover: "/img/giothi.jpg",
+        src: "/sound/giothi-buitruonglinh.mp3"
     },
     {
         id: 7,
         title: "Người Có Thương",
         artist: "Đạt Kaa",
-        cover: "/img/NguoiCoThuong.jpg",
-        src: "/sound/NguoiCoThuong_DatKaa.mp3"
+        cover: "/img/nguoicothuong.jpg",
+        src: "/sound/nguoicothuong-datkaa.mp3"
     },
     {
         id: 8,
         title: "Người Em Cố Đô",
         artist: "Rum, Xuân Định",
-        cover: "/img/NguoiEmCoDo.jpg",
-        src: "/sound/NguoiEmCoDo_Rum_XuanDinh.mp3"
+        cover: "/img/nguoiemcodo.jpg",
+        src: "/sound/nguoiemcodo-rum-xuandinh.mp3"
     },
     {
         id: 9,
         title: "Nhà Tôi Có Treo Một Lá Cờ",
         artist: "Hà Anh Tuấn",
-        cover: "/img/NhaToiCoTreoMotLaCo.jpg",
-        src: "/sound/NhaToiCoTreoMotLaCo_HaAnhTuan.mp3"
+        cover: "/img/nhatoicotreomotlaco.jpg",
+        src: "/sound/nhatoicotreomotlaco-haanhtuan.mp3"
     },
     {
         id: 10,
         title: "Phép Màu",
         artist: "Nguyễn Hùng",
-        cover: "/img/PhepMau.jpg",
-        src: "/sound/PhepMau_NguyenHung.mp3"
+        cover: "/img/phepmau.jpg",
+        src: "/sound/phepmau-nguyenhung.mp3"
     },
     {
         id: 11,
         title: "Phố Cũ Còn Anh",
         artist: "Quinn",
-        cover: "/img/PhoCuConAnh.jpg",
-        src: "/sound/PhoCuConAnh_Quinn.mp3"
+        cover: "/img/phocuconanh.jpg",
+        src: "/sound/phocuconanh-quinn.mp3"
     },
     {
         id: 12,
         title: "Thịnh Vượng Việt Nam Sáng Ngời",
         artist: "V.A",
-        cover: "/img/ThinhVuongVietNamSangNgoi.jpg",
-        src: "/sound/ThinhVuongVietNamSangNgoi.mp3"
+        cover: "/img/thinhvuongvietnamsangngoi.jpg",
+        src: "/sound/thinhvuongvietnamsangngoi.mp3"
     },
     {
         id: 13,
         title: "Yêu Được Không",
         artist: "Đức Phúc",
-        cover: "/img/YeuDuocKhong.jpg",
-        src: "/sound/YeuDuocKhong_DucPhuc.mp3"
+        cover: "/img/yeuduockhong.jpg",
+        src: "/sound/yeuduockhong-ducphuc.mp3"
     }
 ];
 
