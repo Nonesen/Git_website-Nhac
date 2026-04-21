@@ -7,6 +7,7 @@ import PlayerBar from '@/components/PlayerBar';
 import SongGrid from '@/components/SongGrid';
 import AuthModal from '@/components/AuthModal';
 import AdminPanel from '@/components/AdminPanel';
+import Profile from '@/components/Profile';
 import FeedbackModal from '@/components/FeedbackModal';
 import { useLanguage } from '@/context/LanguageContext';
 import { usePlayer } from '@/context/PlayerContext';
