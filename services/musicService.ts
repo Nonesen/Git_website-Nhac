@@ -43,8 +43,8 @@ export async function getTrendingSongs(): Promise<Song[]> {
 
 export async function getChineseTopSongs(): Promise<Song[]> {
     try {
-        // iTunes RSS Top Songs (China)
-        const response = await fetch('https://itunes.apple.com/cn/rss/topsongs/limit=50/json');
+        // iTunes RSS Top Songs (Hong Kong) - Richer in C-pop/Mandopop
+        const response = await fetch('https://itunes.apple.com/hk/rss/topsongs/limit=50/json');
         const data = await response.json();
         return parseRSSFeed(data);
     } catch (error) {
@@ -55,7 +55,8 @@ export async function getChineseTopSongs(): Promise<Song[]> {
 
 export async function getVietnamTopSongs(): Promise<Song[]> {
     try {
-        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=50/json');
+        // iTunes RSS Top Songs (Vietnam) - Genre 1251 (V-Pop)
+        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=50/genre=1251/json');
         const data = await response.json();
         return parseRSSFeed(data);
     } catch (error) {
