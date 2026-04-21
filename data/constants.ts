@@ -138,10 +138,11 @@ export const translations = {
         "online-track": "Trực tuyến",
         "searching": "Đang tìm kiếm...",
         "nav-charts": "Bảng xếp hạng",
-        "charts-trending": "Danh sách bài hát thịnh hành",
-        "charts-global": "Top bài hát xếp hạng toàn cầu",
-        "charts-vietnam": "Top bài hát xếp hạng toàn Việt Nam",
-        "charts-mostplayed": "Những bài hát có số lượng nghe nhiều nhất"
+        "charts-trending": "Top 50 Bài Hát Thịnh Hành",
+        "charts-global": "Top 50 Nhạc Quốc Tế",
+        "charts-vietnam": "Top 50 Nhạc Việt",
+        "charts-chinese": "Top 50 Nhạc Hoa",
+        "charts-youtube": "Top 50 Youtube Thịnh Hành"
     },
     en: {
         "nav-home": "Home",
@@ -179,10 +180,11 @@ export const translations = {
         "online-track": "Online",
         "searching": "Searching...",
         "nav-charts": "Charts",
-        "charts-trending": "Trending Songs",
-        "charts-global": "Global Top Songs",
-        "charts-vietnam": "Vietnam Top Songs",
-        "charts-mostplayed": "Most Played Songs"
+        "charts-trending": "Top 50 Trending Songs",
+        "charts-global": "Top 50 Global Songs",
+        "charts-vietnam": "Top 50 Vietnam Songs",
+        "charts-chinese": "Top 50 Chinese Songs",
+        "charts-youtube": "Top 50 Youtube Trending"
     }
 };
 

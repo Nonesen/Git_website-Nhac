@@ -32,7 +32,7 @@ export async function searchOnlineSongs(query: string): Promise<Song[]> {
 export async function getTrendingSongs(): Promise<Song[]> {
     try {
         // iTunes RSS Hot Songs (VN)
-        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=30/json');
+        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=50/json');
         const data = await response.json();
         return parseRSSFeed(data);
     } catch (error) {
@@ -41,25 +41,49 @@ export async function getTrendingSongs(): Promise<Song[]> {
     }
 }
 
-export async function getGlobalTopSongs(): Promise<Song[]> {
+export async function getChineseTopSongs(): Promise<Song[]> {
     try {
-        // iTunes RSS Top Songs (Global/US)
-        const response = await fetch('https://itunes.apple.com/us/rss/topsongs/limit=30/json');
+        // iTunes RSS Top Songs (China)
+        const response = await fetch('https://itunes.apple.com/cn/rss/topsongs/limit=50/json');
         const data = await response.json();
         return parseRSSFeed(data);
     } catch (error) {
-        console.error('Error fetching global top songs:', error);
+        console.error('Error fetching Chinese top songs:', error);
         return [];
     }
 }
 
 export async function getVietnamTopSongs(): Promise<Song[]> {
     try {
-        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=30/json');
+        const response = await fetch('https://itunes.apple.com/vn/rss/topsongs/limit=50/json');
         const data = await response.json();
         return parseRSSFeed(data);
     } catch (error) {
         console.error('Error fetching VN top songs:', error);
+        return [];
+    }
+}
+
+export async function getYoutubeTrendingSongs(): Promise<Song[]> {
+    try {
+        // Proxy using Top Music Videos VN
+        const response = await fetch('https://itunes.apple.com/vn/rss/topmusicvideos/limit=50/json');
+        const data = await response.json();
+        return parseRSSFeed(data);
+    } catch (error) {
+        console.error('Error fetching Youtube trending songs:', error);
+        return [];
+    }
+}
+
+export async function getGlobalTopSongs(): Promise<Song[]> {
+    try {
+        // iTunes RSS Top Songs (Global/US)
+        const response = await fetch('https://itunes.apple.com/us/rss/topsongs/limit=50/json');
+        const data = await response.json();
+        return parseRSSFeed(data);
+    } catch (error) {
+        console.error('Error fetching global top songs:', error);
         return [];
     }
 }

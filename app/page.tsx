@@ -11,7 +11,7 @@ import Profile from '@/components/Profile';
 import FeedbackModal from '@/components/FeedbackModal';
 import { useLanguage } from '@/context/LanguageContext';
 import { usePlayer } from '@/context/PlayerContext';
-import { searchOnlineSongs, getGlobalTopSongs, getVietnamTopSongs, getTrendingSongs } from '@/services/musicService';
+import { searchOnlineSongs, getGlobalTopSongs, getVietnamTopSongs, getTrendingSongs, getChineseTopSongs, getYoutubeTrendingSongs } from '@/services/musicService';
 import ChartSection from '@/components/ChartSection';
 
 import { Song } from '@/data/constants';
@@ -27,9 +27,9 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [onlineSongs, setOnlineSongs] = useState<Song[]>([]);
   const [trendingSongs, setTrendingSongs] = useState<Song[]>([]);
-  const [globalSongs, setGlobalSongs] = useState<Song[]>([]);
   const [vietnamSongs, setVietnamSongs] = useState<Song[]>([]);
-  const [mostPlayedSongs, setMostPlayedSongs] = useState<Song[]>([]);
+  const [chineseSongs, setChineseSongs] = useState<Song[]>([]);
+  const [youtubeSongs, setYoutubeSongs] = useState<Song[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isExploreLoading, setIsExploreLoading] = useState(false);
   const [currentBanner, setCurrentBanner] = useState(0);
@@ -79,16 +79,16 @@ export default function Home() {
     const fetchCharts = async () => {
       setIsExploreLoading(true);
       try {
-        const [trending, global, vn] = await Promise.all([
+        const [trending, vn, cn, yt] = await Promise.all([
           getTrendingSongs(),
-          getGlobalTopSongs(),
-          getVietnamTopSongs()
+          getVietnamTopSongs(),
+          getChineseTopSongs(),
+          getYoutubeTrendingSongs()
         ]);
         setTrendingSongs(trending);
-        setGlobalSongs(global);
         setVietnamSongs(vn);
-        // Simulate "Most Played" by shuffling/taking slice of trending or using a separate logic
-        setMostPlayedSongs([...trending].sort(() => 0.5 - Math.random()).slice(0, 10));
+        setChineseSongs(cn);
+        setYoutubeSongs(yt);
       } catch (error) {
         console.error("Failed to fetch charts:", error);
       } finally {
@@ -321,27 +321,44 @@ export default function Home() {
 
             {/* Charts Sections - Shows on Home tab (below lists) or on specific Charts tab */}
             {(activeTab === 'home' || activeTab === 'charts') && !searchQuery.trim() && (
-              <>
-                <ChartSection 
-                  title={t('charts-trending')} 
-                  songs={trendingSongs} 
-                />
-                <ChartSection 
-                  title={t('charts-global')} 
-                  songs={globalSongs} 
-                  titleColor="#ff7eb6" 
-                />
-                <ChartSection 
-                  title={t('charts-vietnam')} 
-                  songs={vietnamSongs} 
-                  titleColor="#facc15" 
-                />
-                <ChartSection 
-                  title={t('charts-mostplayed')} 
-                  songs={mostPlayedSongs} 
-                  titleColor="#22c55e" 
-                />
-              </>
+              <section className="charts-container-wrapper" style={{ marginTop: '2.5rem' }}>
+                <div className="section-header">
+                  <h2 style={{ fontSize: '1.6rem', marginBottom: '1.5rem', fontWeight: '800' }}>{t('nav-charts')}</h2>
+                </div>
+                <div className="charts-horizontal-scroll" style={{
+                  display: 'flex',
+                  gap: '20px',
+                  overflowX: 'auto',
+                  paddingBottom: '20px',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(255,255,255,0.2) transparent'
+                }}>
+                  <ChartSection 
+                    title={t('charts-trending')} 
+                    songs={trendingSongs} 
+                    titleColor="#ff4d4d" 
+                    bgColor="rgba(60, 20, 20, 0.4)"
+                  />
+                  <ChartSection 
+                    title={t('charts-vietnam')} 
+                    songs={vietnamSongs} 
+                    titleColor="#facc15" 
+                    bgColor="rgba(40, 40, 10, 0.4)"
+                  />
+                  <ChartSection 
+                    title={t('charts-chinese')} 
+                    songs={chineseSongs} 
+                    titleColor="#a855f7" 
+                    bgColor="rgba(30, 20, 50, 0.4)"
+                  />
+                  <ChartSection 
+                    title={t('charts-youtube')} 
+                    songs={youtubeSongs} 
+                    titleColor="#ef4444" 
+                    bgColor="rgba(50, 10, 10, 0.4)"
+                  />
+                </div>
+              </section>
             )}
 
             {/* Online Section */}
