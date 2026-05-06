@@ -63,6 +63,11 @@ Script này sẽ giúp:
 
 ---
 
+## 💾 NHẬT KÝ SAO LƯU (BACKUP)
+- **07/05/2026**: Đã tạo bản sao lưu toàn bộ dự án tại `../backup_07-05-2026`.
+
+---
+
 ## 🔐 THÔNG TIN ĐĂNG NHẬP (LƯU TRỮ TẠM THỜI)
 
 Sau khi di tản, bạn có thể sử dụng các tài khoản sau:
