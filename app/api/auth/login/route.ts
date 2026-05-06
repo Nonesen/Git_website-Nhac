@@ -30,6 +30,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
         }
 
+        // Record activity
+        user.lastActive = new Date();
+        await user.save();
+
         return NextResponse.json({
             success: true,
             user: {

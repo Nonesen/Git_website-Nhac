@@ -6,7 +6,9 @@ interface User {
     username: string;
     name: string;
     role: string;
+    email?: string;
     createdAt?: string;
+    lastActive?: string;
 }
 
 interface AdminUsersProps {
@@ -23,6 +25,7 @@ const AdminUsers: React.FC<AdminUsersProps> = ({ users, setUsers }) => {
                         <th style={{ padding: '12px', textAlign: 'left' }}>Tài khoản</th>
                         <th style={{ padding: '12px', textAlign: 'left' }}>Tên hiển thị</th>
                         <th style={{ padding: '12px', textAlign: 'center' }}>Ngày tạo</th>
+                        <th style={{ padding: '12px', textAlign: 'center' }}>Hoạt động cuối</th>
                         <th style={{ padding: '12px', textAlign: 'center' }}>Phân quyền</th>
                         <th style={{ padding: '12px', textAlign: 'right' }}>Thao tác</th>
                     </tr>
@@ -34,6 +37,9 @@ const AdminUsers: React.FC<AdminUsersProps> = ({ users, setUsers }) => {
                             <td style={{ padding: '12px' }}>{u.name}</td>
                             <td style={{ padding: '12px', textAlign: 'center', color: 'var(--text-muted)' }}>
                                 {u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : 'Không rõ'}
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'center', color: 'var(--primary-color)', fontWeight: 600 }}>
+                                {u.lastActive ? new Date(u.lastActive).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }) : 'Chưa có'}
                             </td>
                             <td style={{ padding: '12px', textAlign: 'center' }}>
                                 <span style={{ background: u.role==='admin' ? '#f59e0b' : 'var(--primary-color)', padding: '4px 10px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 'bold', color: 'white', display: 'inline-block', minWidth: '70px', textAlign: 'center' }}>
