@@ -38,7 +38,6 @@ export default function Home() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [recentSongs, setRecentSongs] = useState<Song[]>([]);
-  const [displaySongs, setDisplaySongs] = useState<Song[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [onlineSongs, setOnlineSongs] = useState<Song[]>([]);
   const [trendingSongs, setTrendingSongs] = useState<Song[]>([]);
@@ -126,39 +125,39 @@ export default function Home() {
     }
   }, [activeTab, allSongs]);
 
-  // Update displayed songs based on active tab
-  useEffect(() => {
-    // Immediate clear to prevent "sticky" data during transitions
-    if (!activeTab || allSongs.length === 0) return;
+  // Compute displayed songs based on active tab using useMemo for performance
+  const displaySongs = React.useMemo(() => {
+    if (allSongs.length === 0) return [];
     
     if (activeTab === 'home' || activeTab === 'library') {
-      setDisplaySongs(allSongs);
+      return allSongs;
     } else if (activeTab === 'explore') {
-      setDisplaySongs(trendingSongs);
+      return trendingSongs;
     } else if (activeTab === 'recent') {
-      setDisplaySongs(recentSongs);
+      return recentSongs;
     } else if (activeTab === 'liked') {
-      const filtered = likedSongs.map((id: string | number) => allSongs.find(s => s.id === id)).filter(Boolean) as Song[];
-      setDisplaySongs(filtered);
+      return likedSongs.map((id: string | number) => allSongs.find(s => s.id === id)).filter(Boolean) as Song[];
     } else if (activeTab.startsWith('playlist-')) {
       const playlistId = activeTab.replace('playlist-', '');
       const playlist = playlists.find(p => p.id === playlistId);
       if (playlist) {
-        const filtered = playlist.songIds.map(id => allSongs.find(s => s.id === id)).filter(Boolean) as Song[];
-        setDisplaySongs(filtered);
+        return playlist.songIds.map(id => allSongs.find(s => s.id === id)).filter(Boolean) as Song[];
       }
     }
+    return [];
   }, [activeTab, recentSongs, likedSongs, trendingSongs, playlists, allSongs]);
 
   const isAdminTab = activeTab.startsWith('admin-');
 
-  // Filter local songs
-  const localSearchResults = searchQuery.trim() 
-    ? displaySongs.filter(s => 
-        s.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        s.artist.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : displaySongs;
+  // Filter local songs using useMemo
+  const localSearchResults = React.useMemo(() => {
+    if (!searchQuery.trim()) return displaySongs;
+    const query = searchQuery.toLowerCase();
+    return displaySongs.filter(s => 
+      s.title.toLowerCase().includes(query) || 
+      s.artist.toLowerCase().includes(query)
+    );
+  }, [searchQuery, displaySongs]);
 
   return (
     <div className={`app-container ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
