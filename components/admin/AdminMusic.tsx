@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import Image from 'next/image';
 import { Song } from '@/data/constants';
 import FilePickerModal from './FilePickerModal';
 
@@ -196,7 +196,15 @@ const AdminMusic: React.FC<AdminMusicProps> = ({
                         {allSongs.map(song => (
                             <tr key={song.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                                 <td style={{ padding: '14px' }}>#{song.id}</td>
-                                <td style={{ padding: '14px' }}><img src={song.cover} alt="" style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover' }} /></td>
+                                <td style={{ padding: '14px' }}>
+                                    <Image 
+                                        src={song.cover} 
+                                        alt="" 
+                                        width={40} 
+                                        height={40} 
+                                        style={{ borderRadius: '8px', objectFit: 'cover' }} 
+                                    />
+                                </td>
                                 <td style={{ padding: '14px', fontWeight: 600 }}>{song.title}</td>
                                 <td style={{ padding: '14px', color: 'var(--text-muted)' }}>{song.artist}</td>
                                 <td style={{ padding: '14px', textAlign: 'right' }}>

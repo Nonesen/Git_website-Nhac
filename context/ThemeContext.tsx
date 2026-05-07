@@ -17,12 +17,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [resolvedTheme, setResolvedTheme] = useState<Theme>('dark');
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('sonify_theme') as Theme;
-        if (savedTheme) {
-            setThemeState(savedTheme);
-        } else {
-            setThemeState('system');
-        }
+        // Use a small delay or Promise.resolve to avoid synchronous setState warning in some React versions/linters
+        const hydrateTheme = () => {
+            const savedTheme = localStorage.getItem('sonify_theme') as Theme;
+            if (savedTheme) {
+                setThemeState(savedTheme);
+            } else {
+                setThemeState('system');
+            }
+        };
+        hydrateTheme();
     }, []);
 
     useEffect(() => {

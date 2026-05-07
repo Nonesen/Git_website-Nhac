@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import Image from 'next/image';
 import { usePlayer } from '@/context/PlayerContext';
 import QueuePanel from './QueuePanel';
 
@@ -34,8 +34,13 @@ const PlayerBar: React.FC = () => {
             {/* LEFT — Track Info */}
             <div className="current-track">
                 <div className="track-img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={currentSong.cover} alt={currentSong.title} />
+                    <Image 
+                        src={currentSong.cover} 
+                        alt={currentSong.title} 
+                        width={56} 
+                        height={56} 
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                    />
                 </div>
                 <div className="track-info">
                     <h4>{currentSong.title}</h4>

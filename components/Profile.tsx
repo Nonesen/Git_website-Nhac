@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { usePlayer } from '@/context/PlayerContext';
 import { songs } from '@/data/constants';
@@ -55,7 +55,13 @@ const Profile: React.FC = () => {
                 <div className="song-grid-mini">
                     {likedList.map(song => (
                         <div key={song.id} className="song-card-mini" onClick={() => playSong(song)}>
-                            <img src={song.cover} alt={song.title} />
+                            <Image 
+                                src={song.cover} 
+                                alt={song.title} 
+                                width={60} 
+                                height={60} 
+                                style={{ objectFit: 'cover', borderRadius: '8px' }} 
+                            />
                             <div className="song-details">
                                 <h4>{song.title}</h4>
                                 <p>{song.artist}</p>
@@ -119,8 +125,15 @@ const Profile: React.FC = () => {
                 <input type="file" ref={coverInputRef} hidden accept="image/*" onChange={handleCoverChange} />
                 
                 <div className="profile-info-main">
-                    <div className="profile-avatar-container circular-avatar" onClick={() => avatarInputRef.current?.click()}>
-                        <img src={avatar} alt="Avatar" className="circular-img" />
+                    <div className="profile-avatar-container circular-avatar" style={{ position: 'relative', overflow: 'hidden' }} onClick={() => avatarInputRef.current?.click()}>
+                        <Image 
+                            src={avatar} 
+                            alt="Avatar" 
+                            fill 
+                            className="circular-img" 
+                            style={{ objectFit: 'cover' }}
+                            unoptimized={avatar.startsWith('data:')}
+                        />
                         <div className="upload-overlay">
                             <i className="fa-solid fa-camera"></i>
                         </div>

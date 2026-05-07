@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
 import { Song } from '@/data/constants';
 import { useLanguage } from '@/context/LanguageContext';
 import { usePlayer } from '@/context/PlayerContext';
@@ -131,10 +131,12 @@ const ChartSection: React.FC<ChartSectionProps> = ({ title, songs, titleColor = 
               {idx + 1}
             </div>
             
-            <img 
+            <Image 
               src={song.cover} 
               alt={song.title} 
-              style={{ width: '48px', height: '48px', borderRadius: '6px', objectFit: 'cover' }} 
+              width={48} 
+              height={48} 
+              style={{ borderRadius: '6px', objectFit: 'cover' }} 
             />
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>

@@ -181,7 +181,6 @@ export default function Home() {
           <HomeBanner 
             currentBanner={currentBanner} 
             trendingSongs={trendingSongs} 
-            t={t} 
           />
         )}
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
 import { usePlayer } from '@/context/PlayerContext';
 import { songs } from '@/data/constants';
 
@@ -50,7 +50,13 @@ const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Đang phát</p>
                 {currentSong && (
                     <div className="active-queue-item" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', background: 'var(--primary-color)', borderRadius: '12px', boxShadow: '0 8px 20px rgba(99, 102, 241, 0.3)' }}>
-                        <img src={currentSong.cover} alt="" style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover' }} />
+                        <Image 
+                            src={currentSong.cover} 
+                            alt="" 
+                            width={44} 
+                            height={44} 
+                            style={{ borderRadius: '8px', objectFit: 'cover' }} 
+                        />
                         <div style={{ minWidth: 0 }}>
                             <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentSong.title}</p>
                             <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentSong.artist}</p>
@@ -77,7 +83,13 @@ const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
                                 onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0, 229, 255, 0.05)'}
                                 onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
                             >
-                                <img src={song.cover} alt="" style={{ width: '38px', height: '38px', borderRadius: '6px', objectFit: 'cover' }} />
+                                <Image 
+                                    src={song.cover} 
+                                    alt="" 
+                                    width={38} 
+                                    height={38} 
+                                    style={{ borderRadius: '6px', objectFit: 'cover' }} 
+                                />
                                 <div style={{ minWidth: 0 }}>
                                     <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{song.title}</p>
                                     <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{song.artist}</p>
@@ -100,7 +112,13 @@ const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
                             onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
                             onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
                         >
-                            <img src={song.cover} alt="" style={{ width: '38px', height: '38px', borderRadius: '6px', objectFit: 'cover' }} />
+                            <Image 
+                                src={song.cover} 
+                                alt="" 
+                                width={38} 
+                                height={38} 
+                                style={{ borderRadius: '6px', objectFit: 'cover' }} 
+                            />
                             <div style={{ minWidth: 0 }}>
                                 <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{song.title}</p>
                                 <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{song.artist}</p>

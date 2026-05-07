@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         
         if (!user.sessions) user.sessions = [];
         
-        let session = user.sessions.find(s => s.deviceId === deviceId);
+        const session = user.sessions.find(s => s.deviceId === deviceId);
         
         if (!session) {
             // New device/session

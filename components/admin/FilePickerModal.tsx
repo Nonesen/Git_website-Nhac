@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
 
 interface FilePickerModalProps {
     isOpen: boolean;
@@ -84,7 +84,15 @@ const FilePickerModal: React.FC<FilePickerModalProps> = ({
                                 >
                                     {type === 'img' ? (
                                         <>
-                                            <img src={`/img/${file}`} alt="" style={{ width: '100%', aspectRatio: '1/1', borderRadius: '8px', objectFit: 'cover', marginBottom: '8px' }} />
+                                            <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', marginBottom: '8px' }}>
+                                                <Image 
+                                                    src={`/img/${file}`} 
+                                                    alt="" 
+                                                    fill 
+                                                    unoptimized
+                                                    style={{ borderRadius: '8px', objectFit: 'cover' }} 
+                                                />
+                                            </div>
                                             <span style={{ fontSize: '0.75rem', textAlign: 'center', wordBreak: 'break-all', opacity: 0.8 }}>{file}</span>
                                         </>
                                     ) : (

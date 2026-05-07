@@ -1,15 +1,14 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
 import { Song } from '@/data/constants';
 
 interface HomeBannerProps {
   currentBanner: number;
   trendingSongs: Song[];
-  t: (key: string) => string;
 }
 
-const HomeBanner: React.FC<HomeBannerProps> = ({ currentBanner, trendingSongs, t }) => {
+const HomeBanner: React.FC<HomeBannerProps> = ({ currentBanner, trendingSongs }) => {
   const banners = [
     { 
       img: '/img/banner-nature.png', 
@@ -53,21 +52,28 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ currentBanner, trendingSongs, t
     <section 
       className="hero-section hero-banner" 
       style={{ 
-        backgroundImage: `url(${banner.img})`, 
-        backgroundSize: 'cover', 
-        backgroundPosition: 'center',
         transition: 'background-image 0.5s ease-in-out',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: banner.featured ? 'space-between' : banner.align as any,
-        textAlign: banner.textAlign as any,
+        justifyContent: banner.featured ? 'space-between' : (banner.align as 'center' | 'flex-start' | 'flex-end'),
+        textAlign: banner.textAlign as 'center' | 'left' | 'right',
         height: '240px',
         minHeight: '240px',
         position: 'relative',
         padding: '2rem 3rem',
-        gap: '2rem'
+        gap: '2rem',
+        overflow: 'hidden'
       }}
     >
+      {/* Background Image using next/image for optimization */}
+      <Image 
+        src={banner.img} 
+        alt="" 
+        fill 
+        priority
+        style={{ objectFit: 'cover', zIndex: -1 }}
+      />
+      
       <div className="hero-content" style={{ 
         background: banner.bg, 
         padding: '1.2rem 2rem', 
@@ -114,7 +120,13 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ currentBanner, trendingSongs, t
               cursor: 'pointer'
             }}>
               <span style={{ color: banner.color, fontWeight: 'bold', fontSize: '0.9rem', width: '20px' }}>{idx + 1}</span>
-              <img src={song.cover} alt="" style={{ width: '42px', height: '42px', borderRadius: '8px', objectFit: 'cover' }} />
+              <Image 
+                src={song.cover} 
+                alt="" 
+                width={42} 
+                height={42} 
+                style={{ borderRadius: '8px', objectFit: 'cover' }} 
+              />
               <div style={{ textAlign: 'left', overflow: 'hidden' }}>
                 <div style={{ color: 'white', fontSize: '0.9rem', fontWeight: '600', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{song.title}</div>
                 <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem' }}>{song.artist}</div>

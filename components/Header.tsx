@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -79,10 +79,13 @@ const Header: React.FC<HeaderProps> = ({ setActiveTab, onLoginClick, onFeedbackC
 
                     {user ? (
                         <div className="user-avatar-wrap" ref={userDropdownRef}>
-                            <img
+                            <Image
                                 src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff&size=64`}
                                 alt="Avatar"
+                                width={32}
+                                height={32}
                                 onClick={() => setIsUserDropdownOpen(prev => !prev)}
+                                style={{ borderRadius: '50%', cursor: 'pointer' }}
                             />
 
                             {isUserDropdownOpen && (

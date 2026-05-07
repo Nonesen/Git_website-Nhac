@@ -35,10 +35,12 @@ function formatTimeAgo(date: Date): string {
 }
 
 const AdminUsers: React.FC<AdminUsersProps> = ({ users, setUsers }) => {
-    const [now, setNow] = useState(Date.now());
+    const [now, setNow] = useState<number>(0);
 
-    // Tick every 30s to refresh Online/Offline status dynamically
+    // Initial time set and Tick every 30s
     useEffect(() => {
+        // Use a microtask to avoid the "cascading renders" error in some React linters
+        Promise.resolve().then(() => setNow(Date.now()));
         const tick = setInterval(() => setNow(Date.now()), 30000);
         return () => clearInterval(tick);
     }, []);

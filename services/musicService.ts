@@ -101,17 +101,25 @@ export async function getGlobalTopSongs(): Promise<Song[]> {
     }
 }
 
-function parseRSSFeed(data: any): Song[] {
+interface RSSEntry {
+    id: { attributes: { 'im:id': string } };
+    'im:name': { label: string };
+    'im:artist': { label: string };
+    'im:image': { label: string }[];
+    link: { attributes?: { href: string } }[];
+}
+
+function parseRSSFeed(data: { feed?: { entry?: RSSEntry[] } }): Song[] {
     if (!data.feed || !data.feed.entry) return [];
 
-    return data.feed.entry.map((entry: any) => {
+    return data.feed.entry.map((entry) => {
         const trackId = entry.id.attributes['im:id'];
         return {
             id: `chart-${trackId}-${Math.random().toString(36).substr(2, 5)}`, // ensure unique ids
             title: entry['im:name'].label,
             artist: entry['im:artist'].label,
             cover: entry['im:image'][2].label.replace(/\/\d+x\d+/, '/600x600'),
-            src: entry.link[1]?.attributes?.href || entry.link[0]?.attributes?.href, 
+            src: entry.link[1]?.attributes?.href || entry.link[0]?.attributes?.href || '', 
             isOnline: true,
             youtubeSearch: `${entry['im:name'].label} ${entry['im:artist'].label} lyrics`
         };

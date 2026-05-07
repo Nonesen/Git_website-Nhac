@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Song } from '@/data/constants';
 import { usePlayer } from '@/context/PlayerContext';
 
@@ -15,8 +16,14 @@ const SongCard: React.FC<SongCardProps> = ({ song }) => {
 
     return (
         <div className={`song-card ${isCurrent ? 'active' : ''}`} onClick={() => playSong(song)}>
-            <div className="img-wrap">
-                <img src={song.cover} alt={song.title} />
+            <div className="img-wrap" style={{ position: 'relative' }}>
+                <Image 
+                    src={song.cover} 
+                    alt={song.title} 
+                    fill 
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+                    style={{ objectFit: 'cover' }}
+                />
                 <div className={`play-overlay ${isCurrent && isPlaying ? 'playing' : ''}`}>
                     <i className={`fa-solid ${isCurrent && isPlaying ? 'fa-pause' : 'fa-play'}`}></i>
                 </div>
