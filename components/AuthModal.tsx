@@ -74,6 +74,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 setError(data.message || 'Đăng ký thất bại!');
             }
         } catch (err) {
+            console.error('Registration error:', err);
             setError('Lỗi hệ thống');
         }
     };
@@ -96,6 +97,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 setError(data.message || 'Không tìm thấy tài khoản này!');
             }
         } catch (err) {
+            console.error('Role check error:', err);
             setError('Lỗi hệ thống');
         } finally {
             setIsCheckingRole(false);
@@ -120,6 +122,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 setError(data.message || 'Đổi mật khẩu thất bại!');
             }
         } catch (err) {
+            console.error('Password reset error:', err);
             setError('Lỗi hệ thống');
         }
     };

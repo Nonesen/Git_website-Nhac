@@ -94,7 +94,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             const v = parseFloat(savedVol);
             if (!isNaN(v) && v >= 0 && v <= 1) setVolumeState(v);
         }
-    }, [isAuthenticated, currentSong]);
+    }, [isAuthenticated, currentSong, refreshSongs]);
 
     // Sync from Cloud when user logs in
     useEffect(() => {
@@ -193,7 +193,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         } catch (error) {
             console.warn("Playback interrupted", error);
         }
-    }, [currentSong?.id]);
+    }, []);
 
     const togglePlay = async () => {
         try {
