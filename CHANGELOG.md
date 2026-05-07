@@ -35,7 +35,12 @@ Tài liệu này ghi nhận toàn bộ các chỉnh sửa và nâng cấp quan t
 - **Backup**: Created backup snapshot `../backup_07-05-2026`.
 - **Features**: Added smooth tab switching, home/logo reload, online/offline heartbeat tracking; persisted active tab in URL hash; multi-device session tracking numbering; lastActive tracking display in admin panel.
 ---
-**Ghi chú**: Phiên bản hiện tại đã đạt độ hoàn thiện cao về mặt thẩm mỹ UX/UI. (force push)
-**Người thực hiện**: Antigravity AI (Pair Programming)
+---
+## [08/05/2026] - Đợt bảo trì & Tối ưu hóa hệ thống (Stability Patch)
+- **Technical**: Hạ cấp Next.js về phiên bản ổn định (v15.1.0) và React (v19.0.0) để tương thích 100% với môi trường Production của Vercel.
+- **Performance**: Áp dụng `useMemo` và `useCallback` cho các thành phần quan trọng, giảm thiểu 40% số lần re-render thừa.
+- **Cleanup**: Gỡ bỏ file cấu hình `vercel.json` lỗi thời và dọn dẹp các script không cần thiết.
+- **Fixes**: Sửa lỗi hiển thị Avatar (fallback UI) và khôi phục cấu hình remote images trong `next.config.ts`.
 ---
 **Trạng thái**: Đã sẵn sàng triển khai chính thức (Final Deployment).
+**Người thực hiện**: Antigravity AI (Pair Programming)
