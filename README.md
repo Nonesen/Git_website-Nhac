@@ -36,8 +36,8 @@
 ## 🛠️ Tech Stack
 
 - **Framework:** [Next.js 16](https://nextjs.org/) + App Router
-- **Database:** [MongoDB](https://www.mongodb.com/) (Managed by Railway)
-- **Deployment & Hosting:** [Vercel](https://vercel.com) & [Railway](https://railway.app)
+- **Database:** [MongoDB Atlas](https://www.mongodb.com/atlas) (Cloud Database - Free Tier)
+- **Deployment & Hosting:** [Vercel](https://vercel.com) (Frontend + Serverless Functions)
 - **UI:** React 19 + TypeScript 5 + Vanilla CSS
 - **State:** React Context API (Player, Auth, Theme, Language)
 - **Security:** bcryptjs cho mã hóa mật khẩu
@@ -49,14 +49,14 @@
 Để chạy dự án với cơ sở dữ liệu thực, bạn cần tạo file `.env.local` ở thư mục gốc:
 
 ```env
-MONGODB_URI=mongodb://mongo:<password>@<host>:<port>
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxx.mongodb.net/sonify
 ```
 
 ## 🌐 Triển khai lên Vercel
 
 1. Truy cập vào Dashboard dự án trên **Vercel**.
 2. Tìm phần **Settings** -> **Environment Variables**.
-3. Thêm biến `MONGODB_URI` với giá trị là chuỗi kết nối từ Railway của bạn.
+3. Thêm biến `MONGODB_URI` với giá trị là chuỗi kết nối từ **MongoDB Atlas** của bạn.
 4. Bấm **Redeploy** để áp dụng thay đổi.
 
 ---
