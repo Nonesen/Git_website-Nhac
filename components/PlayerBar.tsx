@@ -18,8 +18,6 @@ const PlayerBar: React.FC = () => {
     const [dropdownView, setDropdownView] = useState<'main' | 'playlists'>('main');
     const [newPlaylistName, setNewPlaylistName] = useState('');
 
-    if (!currentSong) return null;
-
     const formatTime = useCallback((time: number) => {
         if (!time || isNaN(time)) return '00:00';
         const mins = Math.floor(time / 60);
@@ -28,7 +26,9 @@ const PlayerBar: React.FC = () => {
     }, []);
 
     const progress = useMemo(() => duration ? (currentTime / duration) * 100 : 0, [currentTime, duration]);
-    const isLiked = useMemo(() => likedSongs.includes(currentSong.id), [likedSongs, currentSong.id]);
+    const isLiked = useMemo(() => currentSong ? likedSongs.includes(currentSong.id) : false, [likedSongs, currentSong]);
+
+    if (!currentSong) return null;
 
     return (
         <footer className="player-bar">

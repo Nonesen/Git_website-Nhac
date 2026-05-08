@@ -14,7 +14,7 @@ interface HeaderProps {
     onSearch: (query: string) => void;
 }
 
-const UserAvatar: React.FC<{ user: any, onClick: () => void }> = ({ user, onClick }) => {
+const UserAvatar: React.FC<{ user: { name?: string }, onClick: () => void }> = ({ user, onClick }) => {
     const [imgError, setImgError] = useState(false);
     const initials = user.name ? user.name.charAt(0).toUpperCase() : '?';
     
@@ -22,7 +22,7 @@ const UserAvatar: React.FC<{ user: any, onClick: () => void }> = ({ user, onClic
         <>
             {!imgError ? (
                 <Image
-                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff&size=64`}
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=6366f1&color=fff&size=64`}
                     alt="Avatar"
                     width={32}
                     height={32}
@@ -62,7 +62,6 @@ const Header: React.FC<HeaderProps> = ({ setActiveTab, onLoginClick, onFeedbackC
         } else {
             base = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
         }
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setGreeting(user ? `${base}, ${user.name}` : `${base}, ${defaultName}`);
     }, [language, user]);
 

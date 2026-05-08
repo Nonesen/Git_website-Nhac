@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         let isMatch = false;
         try {
             isMatch = await bcrypt.compare(password, user.password as string);
-        } catch (error) {
+        } catch {
             console.log('Bcrypt error, falling back to plain text check');
         }
 
