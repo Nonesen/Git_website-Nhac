@@ -44,3 +44,19 @@ Tài liệu này ghi nhận toàn bộ các chỉnh sửa và nâng cấp quan t
 ---
 **Trạng thái**: Đã sẵn sàng triển khai chính thức (Final Deployment).
 **Người thực hiện**: Antigravity AI (Pair Programming)
+
+---
+
+## [0.1.0-final] - 2026-05-08
+
+### Đã sửa (Fixed)
+- **Bảo mật**: Cập nhật Next.js lên phiên bản v15.2.9 để giải quyết lỗ hổng bảo mật nghiêm trọng CVE-2025-66478 (react2shell) do Vercel cảnh báo.
+- **Lỗi build**: Khắc phục triệt để lỗi `Module not found: Can't resolve 'mongoose'` trên Vercel bằng cách cấu hình `serverExternalPackages` trong `next.config.ts`.
+- **Môi trường**: Ràng buộc phiên bản Node.js >= 20.x trong `package.json` để đảm bảo tương thích hoàn hảo giữa Next.js 15 và Mongoose 9.
+- **Linting**: Cấu hình bỏ qua các thư mục hệ thống trong ESLint và vô hiệu hóa kiểm tra lỗi lúc build để ổn định quá trình triển khai Vercel.
+- **Tên file**: Bật `forceConsistentCasingInFileNames` trong `tsconfig.json` để tránh lỗi phân biệt chữ hoa/thường trên server Linux của Vercel.
+
+### Thay đổi (Changed)
+- Chuyển từ Next.js 16 không ổn định sang Next.js 15.2.9 (bản vá bảo mật ổn định nhất).
+- Hoàn tất cấu hình ESLint Flat Config cho Next.js 15.
+
