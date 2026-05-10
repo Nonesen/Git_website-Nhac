@@ -45,6 +45,10 @@
     --btn-main-bg: #0f172a;
     --btn-main-text: #ffffff;
     --theme-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
+    /* Clock overrides for light theme */
+    --clock-color: #4f46e5;
+    --clock-bg: rgba(79, 70, 229, 0.08);
+    --clock-border: rgba(79, 70, 229, 0.2);
 }
 
 [data-theme='blue'] {
@@ -63,6 +67,10 @@
     --btn-main-bg: rgba(0, 191, 255, 0.15);
     --btn-main-text: #33ccff;
     --cyan-accent: #00aaff;
+    /* Clock overrides for blue theme */
+    --clock-color: #80dfff;
+    --clock-bg: rgba(0, 191, 255, 0.12);
+    --clock-border: rgba(0, 191, 255, 0.25);
 }
 
 /* ==========================================================================
@@ -332,14 +340,17 @@ h1, h2, h3, .logo span {
 }
 
 .header-clock {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--cyan-accent);
-    padding: 0 10px;
-    border-left: 1px solid var(--glass-border);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--clock-color, var(--primary-color));
+    background: var(--clock-bg, rgba(99, 102, 241, 0.12));
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--clock-border, rgba(99, 102, 241, 0.25));
     min-width: 80px;
     text-align: center;
+    letter-spacing: 0.5px;
 }
 
 /* ===== LOGIN BUTTON (GUEST) ===== */
