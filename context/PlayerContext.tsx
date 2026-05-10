@@ -32,6 +32,7 @@ interface PlayerContextType {
     createAndAddToPlaylist: (name: string, songId: number | string) => void;
     queue: Song[];
     allSongs: Song[];
+    playbackList: Song[];
     addToNextUp: (song: Song) => void;
     shuffleQueue: () => void;
     shuffleAll: () => void;
@@ -41,7 +42,8 @@ interface PlayerContextType {
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
-    const [allSongs, setAllSongs] = useState<Song[]>([]);
+    const [allSongs, setAllSongs] = useState<Song[]>([]); // Original order
+    const [playbackList, setPlaybackList] = useState<Song[]>([]); // Current playback order
     const [currentSong, setCurrentSong] = useState<Song | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(0);
@@ -66,6 +68,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             const data = await response.json();
             if (data.success) {
                 setAllSongs(data.data);
+                setPlaybackList(data.data);
                 if (data.data.length > 0 && !currentSong) {
                     setCurrentSong(data.data[0]);
                 }
@@ -222,7 +225,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         }
 
         let nextIdx;
-        const currentSongsList = allSongs; 
+        const currentSongsList = playbackList.length > 0 ? playbackList : allSongs; 
         const currentIdx = currentSongsList.findIndex(s => s.id === currentSong.id);
         
         if (isShuffle) {
@@ -233,7 +236,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         if (currentSongsList[nextIdx]) {
             playSong(currentSongsList[nextIdx]);
         }
-    }, [currentSong, queue, allSongs, isShuffle, playSong]);
+    }, [currentSong, queue, allSongs, playbackList, isShuffle, playSong]);
 
     useEffect(() => {
         if (!audioRef.current) {
@@ -270,11 +273,12 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     }, [isRepeat, isShuffle, currentSong, nextSong, volume]);
 
     const prevSong = useCallback(() => {
-        if (!currentSong || allSongs.length === 0) return;
-        const currentIdx = allSongs.findIndex(s => s.id === currentSong.id);
-        const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + allSongs.length) % allSongs.length;
-        playSong(allSongs[prevIdx]);
-    }, [currentSong, allSongs, playSong]);
+        const currentSongsList = playbackList.length > 0 ? playbackList : allSongs;
+        if (!currentSong || currentSongsList.length === 0) return;
+        const currentIdx = currentSongsList.findIndex(s => s.id === currentSong.id);
+        const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + currentSongsList.length) % currentSongsList.length;
+        playSong(currentSongsList[prevIdx]);
+    }, [currentSong, allSongs, playbackList, playSong]);
 
     const seek = useCallback((time: number) => {
         setCurrentTime(time);
@@ -369,8 +373,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const shuffleAll = useCallback(() => {
-        setAllSongs(prev => {
-            const shuffled = [...prev];
+        setPlaybackList(prev => {
+            const listToShuffle = prev.length > 0 ? prev : allSongs;
+            const shuffled = [...listToShuffle];
             for (let i = shuffled.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -379,7 +384,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         });
         shuffleQueue();
         setIsShuffle(true);
-    }, [shuffleQueue]);
+    }, [shuffleQueue, allSongs]);
 
     return (
         <PlayerContext.Provider value={{
@@ -387,7 +392,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             playSong, togglePlay, nextSong, prevSong, seek, setVolume, toggleShuffle, toggleRepeat,
             likedSongs, toggleLike,
             playlists, createPlaylist, deletePlaylist, addToPlaylist, removeFromPlaylist, createAndAddToPlaylist,
-            queue, allSongs, addToNextUp, shuffleQueue, shuffleAll, refreshSongs
+            queue, allSongs, playbackList, addToNextUp, shuffleQueue, shuffleAll, refreshSongs
         }}>
             {children}
             {/* Hidden ReactPlayer for YouTube Audio */}

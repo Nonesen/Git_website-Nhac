@@ -1,11 +1,11 @@
 # Nhật Ký Thay Đổi & Phát Triển - Sonify (Cập nhật 11/05/2026)
 
 ---
-## [11/05/2026] - Nâng cấp tính năng Xáo trộn thực tế (Real Shuffle Feature)
-- **New Feature**: Nâng cấp nút **Shuffle** trong Hàng chờ. Khi ấn vào, hệ thống sẽ thực hiện thuật toán **Fisher-Yates** để tráo đổi vị trí thực tế của tất cả bài hát trong danh sách phát, thay vì chỉ bật chế độ ngẫu nhiên.
-- **Context Update**: Thêm hàm `shuffleAll` vào `PlayerContext` để quản lý việc xáo trộn đồng bộ cả danh sách chính (`allSongs`) và hàng chờ tạm thời (`queue`).
-- **UI/UX**: Cập nhật giao diện QueuePanel để phản hồi ngay lập tức sự thay đổi vị trí bài hát khi người dùng nhấn nút.
-- **Pushed**: Đã đồng bộ mã nguồn mới nhất lên GitHub.
+## [11/05/2026] - Tối ưu hóa Xáo trộn (Shuffle Optimization)
+- **Improvement**: Tách biệt danh sách phát (`playbackList`) và danh sách gốc (`allSongs`). 
+- **User Experience**: Chức năng xáo trộn hiện tại chỉ ảnh hưởng đến thứ tự bài hát trong **Hàng chờ**, không làm thay đổi thứ tự bài hát hiển thị ngoài **Trang chủ**.
+- **Context Update**: Cập nhật `PlayerContext` để duy trì thứ tự gốc cho giao diện chính, trong khi vẫn cho phép người dùng tùy biến thứ tự phát nhạc.
+- **Pushed**: Đã đồng bộ bản cập nhật tối ưu lên GitHub.
 
 ---
 

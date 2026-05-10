@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { usePlayer } from '@/context/PlayerContext';
-import { songs } from '@/data/constants';
 
 interface QueuePanelProps {
     isOpen: boolean;
@@ -11,14 +10,14 @@ interface QueuePanelProps {
 }
 
 const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
-    const { currentSong, playSong, queue, shuffleQueue, isShuffle, shuffleAll, allSongs } = usePlayer();
-
+    const { currentSong, playSong, queue, shuffleQueue, isShuffle, shuffleAll, playbackList, allSongs } = usePlayer();
+    
     if (!isOpen) return null;
 
     // The order of next songs: 
     // 1. Manually added queue
-    // 2. Regular songs in order
-    const currentSongsList = allSongs.length > 0 ? allSongs : songs;
+    // 2. Regular songs in order (using playbackList which can be shuffled independently)
+    const currentSongsList = playbackList.length > 0 ? playbackList : allSongs;
     const currentIndex = currentSong ? currentSongsList.findIndex(s => s.id === currentSong.id) : 0;
     
     // If shuffle is on, we might want to show a randomized list, 
