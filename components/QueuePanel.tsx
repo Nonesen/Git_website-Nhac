@@ -11,7 +11,7 @@ interface QueuePanelProps {
 }
 
 const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
-    const { currentSong, playSong, queue, shuffleQueue, isShuffle, toggleShuffle, allSongs } = usePlayer();
+    const { currentSong, playSong, queue, shuffleQueue, isShuffle, shuffleAll, allSongs } = usePlayer();
 
     if (!isOpen) return null;
 
@@ -48,8 +48,8 @@ const QueuePanel: React.FC<QueuePanelProps> = ({ isOpen, onClose }) => {
                 <h3 style={{ fontSize: '1.2rem', margin: 0 }}>Hàng chờ</h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <button 
-                        onClick={toggleShuffle} 
-                        title={isShuffle ? "Tắt xáo trộn" : "Bật xáo trộn"}
+                        onClick={shuffleAll} 
+                        title="Xáo trộn toàn bộ danh sách"
                         style={{ 
                             background: isShuffle ? 'rgba(99, 102, 241, 0.2)' : 'none', 
                             border: isShuffle ? '1px solid var(--primary-color)' : 'none',
