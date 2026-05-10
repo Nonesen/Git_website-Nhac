@@ -3,10 +3,7 @@ import mongoose from 'mongoose';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 declare global {
-    var mongoose: {
-        conn: mongoose.Connection | null;
-        promise: Promise<mongoose.Connection> | null;
-    } | undefined;
+    var _mongoClientPromise: Promise<typeof import("mongoose")> | null;
 }
 
 /**
@@ -14,45 +11,42 @@ declare global {
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-if (!global.mongoose) {
-    global.mongoose = { conn: null, promise: null };
+if (!global._mongoClientPromise) {
+    const opts = {
+        bufferCommands: false,
+        connectTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+    };
+    
+    console.log('--- MONGODB INIT CONNECTION ---');
+    global._mongoClientPromise = mongoose.connect(MONGODB_URI as string, opts)
+        .then((m) => {
+            console.log('--- MONGODB CONNECTED ---');
+            return m;
+        })
+        .catch((e) => {
+            console.error('--- MONGODB ERROR ---', e);
+            global._mongoClientPromise = null;
+            throw e;
+        });
 }
-const cached = global.mongoose;
 
 async function dbConnect() {
     if (!MONGODB_URI) {
-        throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+        throw new Error('Please define the MONGODB_URI environment variable');
     }
 
-    if (cached.conn) {
-        return cached.conn;
-    }
-
-    if (!cached.promise) {
-        const opts = {
-            bufferCommands: false,
-            connectTimeoutMS: 10000, // 10 seconds timeout
-            socketTimeoutMS: 45000,  // 45 seconds timeout
-        };
-
-        console.log('--- MONGODB CONNECTING ---');
-        cached.promise = mongoose.connect(MONGODB_URI as string, opts).then((mongoose) => {
-            console.log('--- MONGODB CONNECTED ---');
-            return mongoose.connection;
-        }).catch(err => {
-            console.error('--- MONGODB CONNECTION ERROR ---', err);
-            throw err;
-        });
+    if (mongoose.connection.readyState >= 1) {
+        return mongoose.connection;
     }
 
     try {
-        cached.conn = await cached.promise;
+        const m = await global._mongoClientPromise;
+        return m.connection;
     } catch (e) {
-        cached.promise = null;
+        console.error('Failed to await mongo promise', e);
         throw e;
     }
-
-    return cached.conn;
 }
 
 export default dbConnect;
