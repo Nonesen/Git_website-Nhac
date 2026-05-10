@@ -2,12 +2,24 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
+import { initialUsers } from '@/data/constants';
 
 export async function POST(request: Request) {
     try {
         await dbConnect();
         const body = await request.json();
         const { username, password, deviceId } = body;
+
+        // AUTO-SETUP: Ensure default accounts exist
+        const totalUsers = await User.countDocuments();
+        if (totalUsers === 0) {
+            console.log('--- AUTO-SEEDING DEFAULT USERS ---');
+            await User.insertMany(initialUsers.map(u => ({
+                ...u,
+                likedSongs: [],
+                sessions: []
+            })));
+        }
 
         const user = await User.findOne({ username });
         if (!user) {
