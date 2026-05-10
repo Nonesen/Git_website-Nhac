@@ -76,5 +76,3 @@ Sonify/
 └── public/             # Assets tĩnh (Icons, Logo, Images)
 ```
 
----
-**Phát triển bởi:** Antigravity AI & Nonesen
