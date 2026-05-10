@@ -12,10 +12,10 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "mongoose": "8.23.1",
-    "next": "15.2.9",
+    "next": "16.2.6",
     "nodemailer": "8.0.7",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "react-player": "^3.4.0"
   },
   "engines": {
@@ -29,7 +29,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9",
-    "eslint-config-next": "15.2.9",
+    "eslint-config-next": "15.1.0",
     "typescript": "^5"
   }
 }
