@@ -352,6 +352,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             return updated;
         });
     }, []);
+    const addToNextUp = useCallback((song: Song) => {
+        setQueue(prev => [song, ...prev]);
+    }, []);
 
     const shuffleQueue = useCallback(() => {
         setQueue(prev => {
