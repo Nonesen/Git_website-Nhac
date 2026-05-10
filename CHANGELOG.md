@@ -1,4 +1,19 @@
-# Nhật Ký Thay Đổi & Phát Triển - Sonify (Cập nhật 07/05/2026)
+# Nhật Ký Thay Đổi & Phát Triển - Sonify (Cập nhật 10/05/2026)
+
+---
+## [10/05/2026] - Vá Lỗ Hổng Bảo Mật Toàn Diện (Critical Security Patch)
+- **Security**: Nâng cấp Next.js lên `15.5.18` (tag `backport`) — phiên bản duy nhất vá đầy đủ tất cả CVE đã báo cáo mà vẫn tương thích với Vercel production.
+- **Security**: Nâng cấp Mongoose lên `8.23.1` — vá lỗ hổng NoSQL Injection (`GHSA-wpg9-53fq-2r8h`).
+- **Security**: Nâng cấp nodemailer lên `8.0.7` — vá SMTP Command Injection và DoS.
+- **Sync**: Đồng bộ `eslint-config-next` về `15.5.18` để tránh xung đột phiên bản.
+- **Verified**: Build production thành công 100% (`next build` — 15 routes, Exit code 0).
+- **Pushed**: Đã push lên GitHub `main` để Vercel tự động triển khai.
+
+**Trạng thái**: ✅ Đã vá xong — Không còn lỗ hổng Critical/High từ Next.js/Mongoose/nodemailer.
+**Người thực hiện**: Antigravity AI (Pair Programming)
+
+---
+
 
 Tài liệu này ghi nhận toàn bộ các chỉnh sửa và nâng cấp quan trọng đã được thực hiện cho dự án Web Nhạc Sonify.
 
