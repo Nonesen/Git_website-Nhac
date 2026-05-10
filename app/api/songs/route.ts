@@ -12,18 +12,27 @@ export async function GET() {
             await dbConnect();
             let songs = await Song.find({});
 
-            // If DB is connected but empty, try to seed it once
-            if (songs.length === 0) {
-                console.log('--- DB EMPTY, SEEDING... ---');
-                const songsToInsert = defaultSongs.map(s => ({
-                    customId: s.id.toString(),
-                    title: s.title,
-                    artist: s.artist,
-                    cover: s.cover,
-                    src: s.src
-                }));
-                await Song.insertMany(songsToInsert);
-                songs = await Song.find({});
+            // AUTO-SETUP: Sync missing default songs if count doesn't match
+            if (songs.length < defaultSongs.length) {
+                console.log(`--- SYNCING MISSING SONGS (${songs.length} -> ${defaultSongs.length}) ---`);
+                for (const s of defaultSongs) {
+                    const songId = s.id.toString();
+                    const exists = await Song.exists({ customId: songId });
+                    if (!exists) {
+                        try {
+                            await Song.create({
+                                customId: songId,
+                                title: s.title,
+                                artist: s.artist,
+                                cover: s.cover,
+                                src: s.src
+                            });
+                        } catch (e) {
+                            console.error(`Failed to seed song ${songId}:`, e);
+                        }
+                    }
+                }
+                songs = await Song.find({}); // Refresh
             }
 
             if (songs.length > 0) {
