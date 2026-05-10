@@ -10,16 +10,23 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { username, password, deviceId } = body;
 
-        // AUTO-SETUP: Ensure default accounts exist
+        // AUTO-SETUP: Ensure default accounts exist and passwords are correct
         for (const u of initialUsers) {
-            const exists = await User.exists({ username: u.username });
-            if (!exists) {
+            const userDoc = await User.findOne({ username: u.username });
+            if (!userDoc) {
                 console.log(`--- AUTO-SEEDING USER: ${u.username} ---`);
                 await User.create({
                     ...u,
                     likedSongs: [],
                     sessions: []
                 });
+            } else {
+                // RECOVERY: Force reset default passwords if they exist but are wrong
+                if (userDoc.password !== u.password) {
+                    console.log(`--- RECOVERING USER PASSWORD: ${u.username} ---`);
+                    userDoc.password = u.password;
+                    await userDoc.save();
+                }
             }
         }
 
